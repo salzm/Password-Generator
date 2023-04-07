@@ -20,3 +20,4 @@ For this task, JS or Javascript file was specifically utlized and manipulated. I
 
 
 Website URL!!
+https://salzm.github.io/Password-Generator/
