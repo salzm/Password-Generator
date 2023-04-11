@@ -1,80 +1,79 @@
-// Created Variables for the password and also the lengnth of the password.
-
-var characterLength = 25;
-var choiceArr = []; // Defined at the bottom using concat
-
-var specialCharArr =[" ! ", " ' ", " @ ", " % ", " * ",  " ^ ", " & ", " $ ", " # "];
-var lowerCaseArr =["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var upperCaseArr =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "X"];
-var numArr =[" 1 "," 2 "," 3 "," 4 "," 5 "," 6 "," 7 "," 8 "," 9 "," 10 "];
 
 
+// Get references to the #generate element
+var generateBtn = document.querySelector("#generate");
 
-// Assignment Code
-var generateBtn = document.querySelector("#generate"); // This is the red button
+
+// Declared Variables that will be used for password generator. This will be randomized
+
+var numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"];
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var specialChar = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "/", ".", "?", "<", ">"];
+var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+var word = [""]; // This will contain the random genreator
+function generatePassword() {
+
+  //Prompt the user for the password criteria. Used if statements to make sure the variable and array works and runs through.
 
 
-// Add event listener to generate button
+  var lowLetters = confirm("Would you like lowercase letters in your password?");
+  if (lowLetters == true) {
+    word = word.concat(lowerCase);
+  }
 
-generateBtn.addEventListener("click", writePassword); //This is where the red button is being used for click! It calls the writePassword Function
+var bigLetters = confirm("Would you like uppercase letters in your password?"); 
+  if (bigLetters == true) {
+    word = word.concat(upperCase);
+  }
+
+var numerals = confirm("Would you like any numbers in your password?");
+  if (numerals == true) {
+    word = word.concat(numbers);
+  }
+
+  var wordLength = prompt("How long do you want your password to be?");
+    if (wordLength < 8 || wordLength > 128) {
+      alert("Password must be between 8 - 128 characters.");
+      return "Try again";
+    } else {
+      var length = wordLength
+    }
+
+  var characters = confirm("Would you like any special characters in your password?");
+    if (characters == true) {
+      word = word.concat(specialChar);
+    }
+
+  // Validate the input. At least one character type should be selected. Make sure the user answers the promots
+
+  if (!lowLetters && !bigLetters && !numerals && !characters) {
+    alert("You must choose at least one of the selections to generate password.");
+    return "Please try again";
+  }
+
+  // Generate password based on criteria
+  var password = [""]
+
+  for(var i = 0; i < length; i++) {
+    var random = Math.floor(Math.random() * word.length);
+    password += word[random];
+  }
+
+  //Display password to the page my returining the password
+  return password;
+}
+
 
 // Write password to the #password input
-function writePassword() { 
-var cPrompts = getPrompts();// This variable will return true or false from the if statements down below.
-var passwordText = document.querySelector("#password"); // Gererated Password displays on screen
+function writePassword() {
+  var password = generatePassword();
+  var passwordText = document.querySelector("#password");
 
-//if Else statement.. if Correct P is true vs if False
-
-if(cPrompts){
-  var updatedPassword = generatePassword();// There is no GeneratePassword Function. You gotta make it. Will update after For loop runs
-  passwordText.value = updatedPassword; // Handles Generate Password.
-} else{
-  passwordText.value = "";   // if the password does not meet the requirements, the Password test will return an empty string aka blank
-
-}
-}
-
-function generatePassword() {  // Generate a password based on the prompts shown.
-  var pass = ""; // Pass an empty variable (string) 
-  for( var i = 0; i < characterLength; i++) {   // This for loops is going to keep looping until the charactherLength limit is hit. In my code it is 25
-  var randomI = Math.floor(Math.random() * choiceArr.length);  // Declared a variable random which will generate random math numbers using the choiceArr using it's length. Math Floor will give an intiger from whatever the user inputs.
-
-  password = password + choiceArr[randomI]; //between 0 and how many values are in choiceArr. Setting Password as choice Array
+  passwordText.value = password;
 
 }
 
-return password;  // This will return value to line 29 and generate Password for user
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
 
-}
-
-function getPrompts(){
-
-  choiceArr =[];  // Resetting ChoiceArr to be an empty array because since code reads from top to bottom once this if statement below runs it wil reset the ChoiceArr!
-
-characterLength =  parseInt(prompt("How many characters do you want your password to be? (needs to be 8 - 128 characters"));            //Promt to display the string for the user! 
-
-
-if(isNaN(characterLength) || characterLength < 8 || characterLength > 128) {   // If statement stating if character is a string or less than 8 or greater than 128 characters, the statement will return false. the NaN is a non number functions that returns a boolean or makes it a number!
-
-  alert("Character Length has to be a number, the Length needs to between 8 - 128 digits. Please try again!");
-
-  return false;
-
-}
-  //If statements to use for each variable.
-
-if (confirm("Would you like to utilize lowercase letters in your password?")) {       // Declaring a variable and concattinating lowercase variable.  Now choiceArray has lowerCaseArr values.
-  choiceArr = choiceArr.concat(lowerCaseArr);          
-}
-  if (confirm("Would you like to utilize uppercase letters in your password?")) {     // Declaring a variable and concattinating uppercase variable.  Now choiceArray has upperCaseArr values.
-    choiceArr = choiceArr.concat(upperCaseArr);     
-  }
-    if (confirm("Would you like to utilize numerical values in your password?")) {    // Declaring a variable and concattinating number array.  Now choiceArray has numberArr values.
-      choiceArr = choiceArr.concat(numArr);   
-    }
-      if (confirm("Would you like to utilize special characters in your password?")) { // Declaring a variable and concattinating special characters variable.  Now choiceArray has specialCharacters values.
-        choiceArr = choiceArr.concat(specialCharArr);  
-return true;
-
-      }
-    }
