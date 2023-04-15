@@ -14,8 +14,7 @@ var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"
 var word = [""]; // This will contain the random genreator
 function generatePassword() {
 
-  //Prompt the user for the password criteria. Used if statements to make sure the variable and array works and runs through.
-
+  //Prompt the user for the password criteria. Used if statements to make sure the variable and array works.
 
   var lowLetters = confirm("Would you like lowercase letters in your password?");
   if (lowLetters == true) {
@@ -64,16 +63,13 @@ var numerals = confirm("Would you like any numbers in your password?");
   return password;
 }
 
-
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
-
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 

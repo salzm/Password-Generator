@@ -18,6 +18,5 @@ For this task, JS or Javascript file was specifically utlized and manipulated. I
 ![alt text](./Assets/Password%20Generated!.png)
 
 
-
 Website URL!!
 https://salzm.github.io/Password-Generator/
